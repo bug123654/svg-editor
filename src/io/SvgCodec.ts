@@ -51,7 +51,7 @@ export class SvgCodec {
     const counters = new Map<string, number>();
     const read = (element: Element): Shape => {
       if (element.namespaceURI && element.namespaceURI !== this.#namespace) throw new Error('foreign XML namespace is not supported');
-      const type = element.localName;
+      const type = element.localName ?? element.tagName;
       const explicitId = element.getAttribute('id');
       let id = explicitId ?? '';
       if (explicitId === null) {
