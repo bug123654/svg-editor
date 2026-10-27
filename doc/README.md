@@ -2,7 +2,8 @@
 
 ## 项目信息
 
-- Git 远程仓库：尚未配置。上传到自己的 GitHub/Gitee 仓库后，在这里填写实际链接。
+- Git 远程仓库：[bug123654/svg-editor](https://github.com/bug123654/svg-editor)。
+- 当前状态：开发进度备份，尚未完成全部类型检查、测试和文档自查；不是最终提交，暂未创建 `final` 标签。
 - 阶段范围：TypeScript CLI，内置 rect / circle / ellipse / line / text / g；不实现后续阶段的 box 插件。
 - 原始需求：[phase_cli_1.md](../phase_cli_1.md)。
 
