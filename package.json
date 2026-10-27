@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "cli": "tsx src/main.ts",
+    "demo": "tsx src/main.ts --script examples/flowchart.commands",
     "build": "tsc -p tsconfig.build.json",
     "start": "node dist/main.js",
     "typecheck": "tsc --noEmit",
