@@ -68,6 +68,8 @@ export class CommandRouter {
     return this.editor.edit(new CreateCommand(shape, parent));
   }
   private help(): string {
-    return [...this.#routes.values()].map(route => route.syntax).join('\n') + '\n# Lines starting with # are comments. Exit with Ctrl+C or end of input.';
+    return [...this.#routes.values()].map(route => route.syntax).join('\n')
+      + '\n\nShape parameters:\n' + this.#factory.syntax().join('\n')
+      + '\n# Lines starting with # are comments. Exit with Ctrl+C or end of input.';
   }
 }

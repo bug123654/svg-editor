@@ -7,7 +7,11 @@ test('no document error and help available before init', async () => {
   for (const line of ['tree', 'show r', 'move r 1 2', 'create rect r 0 0 2 3', 'canvas', 'save', 'undo', 'redo']) {
     assert.equal(await h.router.execute(line), "error: no document. use 'init' or 'read' first");
   }
-  assert.match(await h.ok('help'), /addto <gid> <id>/);
+  const help = await h.ok('help');
+  assert.match(help, /addto <gid> <id>/);
+  assert.match(help, /create rect <id> <x> <y> <width> <height> \[fill\]/);
+  assert.match(help, /create text <id> <x> <y> "<content>"/);
+  assert.match(help, /create line <id> <x1> <y1> <x2> <y2> \[stroke\]/);
 });
 
 test('create all six types, explicit parent, attributes and default appearance', async () => {

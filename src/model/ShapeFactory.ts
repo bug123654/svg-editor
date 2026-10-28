@@ -37,4 +37,14 @@ export class ShapeFactory {
     if (optionalStyle && values.length > count) shape.setAttribute(optionalStyle, values[count]!);
     return shape;
   }
+
+  syntax(): readonly string[] {
+    return [...this.#constructors.keys()].map(type => {
+      const shape = this.create(type, 'example');
+      const parameters = Object.keys(shape.attributes).filter(key => key !== 'id').map(key => `<${key}>`);
+      if (shape instanceof TextShape) parameters.push('"<content>"');
+      else if (!(shape instanceof Group)) parameters.push(shape instanceof Line ? '[stroke]' : '[fill]');
+      return [`create ${type} <id>`, ...parameters, '[in <containerId>]'].join(' ');
+    });
+  }
 }
