@@ -1,0 +1,37 @@
+@startuml
+!pragma layout smetana
+title SVG CLI — module dependencies
+left to right direction
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam defaultFontName SansSerif
+skinparam componentStyle rectangle
+skinparam packageStyle rectangle
+skinparam ArrowColor #40566F
+skinparam packageBackgroundColor #EFF5FC
+skinparam packageBorderColor #587395
+
+component "main.ts\nComposition root" as main #F5F0FF
+package "cli\nCliApplication / Repl\nCommandRouter / Tokenizer" as cli
+package "application\nEditor / DocumentView\nDocumentStorage (port)" as app
+package "commands\nEditCommand / concrete commands\nCommandHistory" as commands
+package "model\nSvgDocument / Shape / Group\nLeaf shapes / ShapeFactory" as model
+package "io\nFileSvgStorage\nSvgCodec / XmlWriter" as io
+
+main ..> cli : constructs
+main ..> app : constructs
+main ..> io : injects storage
+cli --> app : lifecycle / display
+cli --> commands : creates commands
+cli --> model : creates shapes
+app --> commands : history / edits
+app --> model : current document
+commands --> model : edit tree
+io --> model : parse / write
+io ..> app : DocumentStorage\n(type-only import)
+
+note bottom of model
+  No filesystem, terminal or XML dependency.
+  Group and leaf shapes share polymorphic operations.
+end note
+@enduml
